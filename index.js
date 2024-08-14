@@ -6,9 +6,9 @@ import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 
-import zipy from 'zipyai-react-native';
-zipy.init('e100d24c');
+import zipy from 'zipy-react-native';
+zipy.init('your_api_key');
 
-import { withGestureCapture } from 'zipyai-react-native';
+import { withGestureCapture } from 'zipy-react-native';
 
 AppRegistry.registerComponent(appName, () => withGestureCapture(App));
