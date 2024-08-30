@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Animated, StyleSheet } from 'react-native';
+import zipy from 'zipy-react-native';
 
-const LoginScreen: React.FC<{ handleLogin: (username: string, password: string) => void }> = ({ handleLogin }) => {
+const LoginScreen: React.FC<{ handleLogin: (email: string, password: string, lastname: string, username: string ,customerName : string) => void }> = ({ handleLogin }) => {
+  const [email, setEmail] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [customername, setCustomername] = useState('');
+
 
   // Animation references
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -37,22 +42,42 @@ const LoginScreen: React.FC<{ handleLogin: (username: string, password: string) 
         <Text style={styles.header}>Sign In</Text>
         <TextInput
           style={styles.input}
-          placeholder="Username"
+          placeholder="email"
+          placeholderTextColor="#95a5a6"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="first name"
+          placeholderTextColor="#95a5a6"
+          value={firstname}
+          onChangeText={setFirstname}
+        />
+          <TextInput
+          style={styles.input}
+          placeholder="last name"
+          placeholderTextColor="#95a5a6"
+          value={lastname}
+          onChangeText={setLastname}
+        />
+          <TextInput
+          style={styles.input}
+          placeholder="username"
           placeholderTextColor="#95a5a6"
           value={username}
           onChangeText={setUsername}
         />
-        <TextInput
+                  <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="customername"
           placeholderTextColor="#95a5a6"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
+          value={customername}
+          onChangeText={setCustomername}
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => handleLogin(username, password)}
+          onPress={() => handleLogin(email, firstname, lastname, username, customername)}
           activeOpacity={0.8}
         >
           <Text style={styles.buttonText}>Login</Text>

@@ -31,23 +31,23 @@ const ErrorHandlingScreen: React.FC = () => {
   };  
 
   const triggerTypeError = () => {
-    try {
+    // try {
       const num = 42;
       num(); // Trying to call a number as if it were a function
-    } catch (error) {
-      console.error('Type Error:', error);
-      alert('Type error logged');
-    }
+    // } catch (error) {
+    //   console.error('Type Error:', error);
+    //   alert('Type error logged');
+    // }
   };
   
 
   const triggerRangeError = () => {
-    try {
+    // try {
       const arr = new Array(-1); // Invalid array length
-    } catch (error) {
-      console.error('Range Error:', error);
-      alert('Range error logged');
-    }
+    // } catch (error) {
+    //   console.error('Range Error:', error);
+    //   alert('Range error logged');
+    // }
   };
   
   const triggerUnhandledPromiseRejection = () => {

@@ -11,7 +11,7 @@ import LogScreen from './screens/LogScreen';
 import ErrorHandlingScreen from './screens/ErrorHandlingScreen';
 import LoginScreen from './screens/LoginScreen';
 import styles from './styles';
-
+import zipy, {ScreenNavigation} from 'zipy-react-native';
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;
@@ -42,23 +42,31 @@ const App: React.FC = () => {
     setIsDarkTheme(!isDarkTheme);
   };
 
-  const handleLogin = (username: string, password: string) => {
-    if (username === 'zipy' && password === 'zipy') {
+  const handleLogin = (email: string, password: string, lastname: string, username: string, customerName: string ) => {
+    if (true) {
       setIsLoggedIn(true);
-    } else {
-      alert('Invalid username or password');
-    }
+      setTimeout(()=>{
+        zipy.identify(username,{
+          email:  email,
+          firstName: password,
+          lastName : lastname,
+          customerName: customerName
+        })
+      },5000)
+    } 
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    zipy.anonymize();
   };
 
   return (
+    
     <ThemeContext.Provider value={{ toggleTheme, isDarkTheme }}>
-      <NavigationContainer theme={isDarkTheme ? DarkTheme : DefaultTheme}>
+      <NavigationContainer theme={isDarkTheme ? DarkTheme : DefaultTheme} onStateChange={ScreenNavigation}>
         <Stack.Navigator screenOptions={{ headerShown: true, headerStyle: { backgroundColor: isDarkTheme ? '#1a1a2e' : '#f8f9fa' }, headerTintColor: isDarkTheme ? '#fff' : '#000' }}>
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
             <>
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Profile" component={ProfileScreen} />
