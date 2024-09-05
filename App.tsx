@@ -12,6 +12,18 @@ import ErrorHandlingScreen from './screens/ErrorHandlingScreen';
 import LoginScreen from './screens/LoginScreen';
 import styles from './styles';
 import zipy, {ScreenNavigation} from 'zipy-react-native';
+
+import { NativeModules } from "react-native";
+import { startANRMonitoring } from 'myanrlogger';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://3aca528daae3c37bea157a5045a6b400@o4507888853647360.ingest.de.sentry.io/4507888857382992',
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // enableSpotlight: __DEV__,
+});
+
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;
@@ -42,7 +54,7 @@ const App: React.FC = () => {
     setIsDarkTheme(!isDarkTheme);
   };
 
-  const handleLogin = (email: string, password: string, lastname: string, username: string, customerName: string ) => {
+  const handleLogin = async (email: string, password: string, lastname: string, username: string, customerName: string ) => {
     if (true) {
       setIsLoggedIn(true);
       setTimeout(()=>{
@@ -54,6 +66,8 @@ const App: React.FC = () => {
         })
       },5000)
     } 
+    // const deviceInfo = await NativeModules.ZipyaiReactNative.testANR(5);
+
   };
 
   const handleLogout = () => {

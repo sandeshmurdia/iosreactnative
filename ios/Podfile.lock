@@ -1190,9 +1190,33 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSentry (5.31.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Sentry/HybridSDK (= 8.36.0)
+    - Yoga
+  - Sentry/HybridSDK (8.36.0)
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
-  - zipyai-react-native (2.0.28-beta):
+  - zipyai-react-native (2.0.32-beta):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1273,11 +1297,13 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
   - zipyai-react-native (from `../node_modules/zipy-react-native`)
 
 SPEC REPOS:
   trunk:
+    - Sentry
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1394,6 +1420,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fs"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
   zipyai-react-native:
@@ -1456,9 +1484,11 @@ SPEC CHECKSUMS:
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNScreens: aa943ad421c3ced3ef5a47ede02b0cbfc43a012e
+  RNSentry: 2c78e72aaa6e55d61ce60d98a62f01b666f76513
+  Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
-  zipyai-react-native: f4a386f6aef1009f1459d7f77e9d97e1ad2224c8
+  zipyai-react-native: f5dfba2eb182aefe38e9b5a4d5d1ac71e576e38c
 
 PODFILE CHECKSUM: 2fbe69fa89dcf77e94c9b89bebc4255d5d0f1cb5
 
