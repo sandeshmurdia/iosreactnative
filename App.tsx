@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
@@ -12,17 +12,10 @@ import ErrorHandlingScreen from './screens/ErrorHandlingScreen';
 import LoginScreen from './screens/LoginScreen';
 import styles from './styles';
 import zipy, {ScreenNavigation} from 'zipy-react-native';
+// import zipy, {ScreenNavigation} from 'zipyai-react-native';
 
 import { NativeModules } from "react-native";
-import { startANRMonitoring } from 'myanrlogger';
-import * as Sentry from '@sentry/react-native';
 
-Sentry.init({
-  dsn: 'https://3aca528daae3c37bea157a5045a6b400@o4507888853647360.ingest.de.sentry.io/4507888857382992',
-
-  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
-  // enableSpotlight: __DEV__,
-});
 
 type RootStackParamList = {
   Login: undefined;
@@ -66,7 +59,7 @@ const App: React.FC = () => {
         })
       },5000)
     } 
-    // const deviceInfo = await NativeModules.ZipyaiReactNative.testANR(5);
+    // const deviceInfo = await NativeModules.ZipyaiReactNative.testCrash();
 
   };
 
@@ -75,9 +68,31 @@ const App: React.FC = () => {
     zipy.anonymize();
   };
 
+
+  // Function for Button 1
+  const handleButton1 = async () => {
+    await NativeModules.ZipyaiReactNative.testCrash();
+    // Add additional logic here
+  };
+
+  // Function for Button 2
+  const handleButton2 = async () => {
+    console.log("Button 2 pressed");
+    // Add additional logic here
+    await NativeModules.ZipyaiReactNative.testANR(10);
+
+  };
+
+
   return (
     
     <ThemeContext.Provider value={{ toggleTheme, isDarkTheme }}>
+    
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
+          <Button title="Crash 1" onPress={handleButton1} />
+          <Button title="ANR 2" onPress={handleButton2} />
+        </View>
+
       <NavigationContainer theme={isDarkTheme ? DarkTheme : DefaultTheme} onStateChange={ScreenNavigation}>
         <Stack.Navigator screenOptions={{ headerShown: true, headerStyle: { backgroundColor: isDarkTheme ? '#1a1a2e' : '#f8f9fa' }, headerTintColor: isDarkTheme ? '#fff' : '#000' }}>
           {isLoggedIn ? (

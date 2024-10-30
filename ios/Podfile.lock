@@ -1216,7 +1216,7 @@ PODS:
   - Sentry/HybridSDK (8.36.0)
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
-  - zipyai-react-native (2.0.32-beta):
+  - zipyai-react-native (2.0.39-beta):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1488,7 +1488,7 @@ SPEC CHECKSUMS:
   Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
-  zipyai-react-native: f5dfba2eb182aefe38e9b5a4d5d1ac71e576e38c
+  zipyai-react-native: 5e445f212be1696920cb4f1748df447faaf839ab
 
 PODFILE CHECKSUM: 2fbe69fa89dcf77e94c9b89bebc4255d5d0f1cb5
 

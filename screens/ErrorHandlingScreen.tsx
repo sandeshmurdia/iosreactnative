@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from '../App';
 
@@ -7,93 +7,119 @@ const ErrorHandlingScreen: React.FC = () => {
   const { isDarkTheme } = useContext(ThemeContext);
   const navigation = useNavigation();
 
+  // TypeError
+  const triggerTypeError = () => {
+    try {
+      const num = 42;
+      num(); // Trying to invoke a number like a function
+    } catch (error) {
+      console.error('I am here',error);
+    }
+
+  };
+
+  // Unhandled Exception
   const triggerUnhandledError = () => {
     const obj = undefined;
-    console.log(obj.name); // Attempting to access a property of an undefined object
+    console.log(obj.name); // Accessing a property of undefined
   };
 
-  const triggerHandledError = () => {
-    try {
-      const userInput = JSON.parse('Invalid JSON String'); // Trying to parse invalid JSON
-    } catch (error) {
-      console.error('Handled Error:', error);
-      alert('Handled error logged');
-    }
-  };
-
+  // Syntax Error
   const triggerSyntaxError = () => {
     try {
-      eval('const test = { name: "Test", };'); // Extra comma can cause a syntax error in older JS engines
+    throw new SyntaxError("This is a manually triggered syntax error");
+      
     } catch (error) {
-      console.error('Syntax Error:', error);
-      alert('Syntax error logged');
+      console.error(error);
     }
-  };  
-
-  const triggerTypeError = () => {
-    // try {
-      const num = 42;
-      num(); // Trying to call a number as if it were a function
-    // } catch (error) {
-    //   console.error('Type Error:', error);
-    //   alert('Type error logged');
-    // }
   };
-  
 
+  // Range Error
   const triggerRangeError = () => {
-    // try {
-      const arr = new Array(-1); // Invalid array length
-    // } catch (error) {
-    //   console.error('Range Error:', error);
-    //   alert('Range error logged');
-    // }
+    const arr = new Array(-1); // Invalid array size
   };
-  
+
+  // Reference Error
+  const triggerReferenceError = () => {
+    let x = undefinedVar; // Accessing undefined variable
+  };
+
+  // URI Error
+  const triggerURIError = () => {
+    decodeURI('%'); // Invalid URI format
+  };
+
+  // Eval Error
+  const triggerEvalError = () => {
+    // eval('invalid code'); // Invalid code in eval
+    throw new EvalError('Eval error');
+
+  };
+
+  // Unhandled Rejection
   const triggerUnhandledPromiseRejection = () => {
-    fetch('https://nonexistenturl.com/api') // Simulate a failed network request
-      .then(response => response.json());
+    fetch('https://nonexistenturl.com/api')
+      .then((response) => response.json()); // Unhandled promise rejection
   };
-  
+
+  const triggerError = () => {
+    // eval('invalid code'); // Invalid code in eval
+    throw new Error('Eval error');
+  };
 
   return (
-    <View style={[styles.container, { backgroundColor: isDarkTheme ? '#121212' : '#ffffff' }]}>
-      <Text style={[styles.header, { color: isDarkTheme ? '#FF4081' : '#3F51B5' }]}>Error Handling</Text>
-      
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#4CAF50' }]} onPress={triggerHandledError}>
-        <Text style={styles.buttonText}>Handled Error</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#FF5722' }]} onPress={triggerUnhandledError}>
-        <Text style={styles.buttonText}>Unhandled Error</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#2196F3' }]} onPress={triggerSyntaxError}>
-        <Text style={styles.buttonText}>Syntax Error</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#9C27B0' }]} onPress={triggerTypeError}>
-        <Text style={styles.buttonText}>Type Error</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#FFC107' }]} onPress={triggerRangeError}>
-        <Text style={styles.buttonText}>Range Error</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#FF4081' }]} onPress={triggerUnhandledPromiseRejection}>
-        <Text style={styles.buttonText}>Unhandled Promise Rejection</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.button, styles.goBackButton]} onPress={() => navigation.goBack()}>
-        <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={[styles.container, { backgroundColor: isDarkTheme ? '#121212' : '#ffffff' }]}>
+        <Text style={[styles.header, { color: isDarkTheme ? '#FF4081' : '#3F51B5' }]}>Error Handling</Text>
+        
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#9C27B0' }]} onPress={triggerTypeError}>
+          <Text style={styles.buttonText}>Type Error</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#FF5722' }]} onPress={triggerUnhandledError}>
+          <Text style={styles.buttonText}>Unhandled Exception</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#2196F3' }]} onPress={triggerSyntaxError}>
+          <Text style={styles.buttonText}>Syntax Error</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#FFC107' }]} onPress={triggerRangeError}>
+          <Text style={styles.buttonText}>Range Error</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#FF4081' }]} onPress={triggerReferenceError}>
+          <Text style={styles.buttonText}>Reference Error</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#4CAF50' }]} onPress={triggerURIError}>
+          <Text style={styles.buttonText}>URI Error</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#3F51B5' }]} onPress={triggerEvalError}>
+          <Text style={styles.buttonText}>Eval Error</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#FF9800' }]} onPress={triggerUnhandledPromiseRejection}>
+          <Text style={styles.buttonText}>Unhandled Promise Rejection</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#5f5038' }]} onPress={triggerError}>
+          <Text style={styles.buttonText}>Error</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, styles.goBackButton]} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}>Go Back</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    justifyContent: 'center'
+  },
   container: {
-    flex: 1,
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',

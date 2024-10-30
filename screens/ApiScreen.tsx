@@ -2,6 +2,10 @@ import React, { useState, useContext } from 'react';
 import { View, Text, Button, FlatList, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from '../App';
+import axios from 'axios';  // Import Axios
+import zipy from 'zipy-react-native';
+// import zipy from 'zipyai-react-native';
+
 
 const ApiScreen: React.FC = () => {
   const [data, setData] = useState([]);
@@ -19,6 +23,7 @@ const ApiScreen: React.FC = () => {
       const response = await fetch(url);
       if (fail || !response.ok) throw new Error('Failed to fetch data');
       const result = await response.json();
+      console.log(result);
       setData(result);
     } catch (err) {
       setError('An error occurred: ' + err.message);
@@ -51,6 +56,55 @@ const ApiScreen: React.FC = () => {
     }
   };
 
+  const axiosGet = async (url: string, fail = false) => {
+    setLoading(true);
+    setError(null);
+    setData([]);
+
+    try {
+      const response = await axios.get(url);
+      if (fail || response.status !== 200) throw new Error('Failed to fetch data');
+      setData(response.data);
+    } catch (err) {
+      setError('An error occurred: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const axiosPost = async (url: string, body: any, fail = false) => {
+    setLoading(true);
+    setError(null);
+    setData([]);
+  
+    // Generate 30KB of header data
+    const generateLargeHeader = () => {
+      const size = 30 * 1024; // 30KB
+      let largeHeader = '';
+      for (let i = 0; i < size; i++) {
+        largeHeader += 'abc'; // Adds a single character repeatedly to reach 30KB
+      }
+      return largeHeader;
+    };
+  
+    const headers = {
+      'Content-Type': 'application/json'
+
+    };
+  
+    try {
+      const response = await axios.post(url, body, { headers });
+      console.log(response.data);
+      if (fail || response.status !== 201) throw new Error('Failed to post data');
+      setData([response.data]);
+    } catch (err) {
+      setError('An error occurred: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+
   return (
     <View style={[styles.container, { backgroundColor: isDarkTheme ? '#000' : '#fff' }]}>
       <Text style={[styles.header, { color: isDarkTheme ? '#FF4081' : '#3F51B5' }]}>API Calls</Text>
@@ -72,21 +126,37 @@ const ApiScreen: React.FC = () => {
       )}
 
       <View style={styles.buttonContainer}>
+        {/* Fetch buttons */}
         <TouchableOpacity style={[styles.button, { backgroundColor: '#4CAF50' }]} onPress={() => fetchApi('https://jsonplaceholder.typicode.com/posts')}>
-          <Text style={styles.buttonText}>GET Success</Text>
+          <Text style={styles.buttonText}>Fetch GET Success</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { backgroundColor: '#FF5722' }]} onPress={() => fetchApi('https://jsonplaceholder.typicode.com/invalid-endpoint', true)}>
-          <Text style={styles.buttonText}>GET Fail</Text>
+          <Text style={styles.buttonText}>Fetch GET Fail</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { backgroundColor: '#2196F3' }]} onPress={() => postApi('https://jsonplaceholder.typicode.com/posts', { title: 'foo', body: 'bar', userId: 1 })}>
-          <Text style={styles.buttonText}>POST Success</Text>
+          <Text style={styles.buttonText}>Fetch POST Success</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { backgroundColor: '#9C27B0' }]} onPress={() => postApi('https://jsonplaceholder.typicode.com/invalid-endpoint', { title: 'foo', body: 'bar', userId: 1 }, true)}>
-          <Text style={styles.buttonText}>POST Fail</Text>
+          <Text style={styles.buttonText}>Fetch POST Fail</Text>
         </TouchableOpacity>
+
+        {/* Axios buttons */}
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#4CAF50' }]} onPress={() => axiosGet('https://jsonplaceholder.typicode.com/posts')}>
+          <Text style={styles.buttonText}>Axios GET Success</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#FF5722' }]} onPress={() => axiosGet('https://jsonplaceholder.typicode.com/invalid-endpoint', true)}>
+          <Text style={styles.buttonText}>Axios GET Fail</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#2196F3' }]} onPress={() => axiosPost('https://jsonplaceholder.typicode.com/posts', { title: 'foo', body: 'bar', userId: 1 })}>
+          <Text style={styles.buttonText}>Axios POST Success</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#9C27B0' }]} onPress={() => axiosPost('https://jsonplaceholder.typicode.com/invalid-endpoint', { title: 'foo', body: 'bar', userId: 1 }, true)}>
+          <Text style={styles.buttonText}>Axios POST Fail</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={[styles.button, styles.goBackButton]} onPress={() => navigation.goBack()}>
-        <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
+          <Text style={styles.buttonText}>Go Back</Text>
+        </TouchableOpacity>
       </View>
 
     

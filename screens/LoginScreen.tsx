@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import zipy from 'zipy-react-native';
+// import zipy from 'zipyai-react-native';
 
 const LoginScreen: React.FC<{ handleLogin: (email: string, password: string, lastname: string, username: string ,customerName : string) => void }> = ({ handleLogin }) => {
   const [email, setEmail] = useState('');

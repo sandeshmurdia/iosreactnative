@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import zipy from 'zipy-react-native';
+// import zipy from 'zipyai-react-native';
+
 import { ThemeContext } from '../App';
 
 const LogScreen: React.FC = () => {
