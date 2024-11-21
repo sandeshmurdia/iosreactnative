@@ -9,7 +9,7 @@ import {name as appName} from './app.json';
 import zipy from 'zipy-react-native';
 // import zipy from 'zipyai-react-native';
 
-zipy.init('6d2b9556');
+zipy.init('xxxxx');
 import * as Sentry from '@sentry/react-native';
 
 // Sentry.init({
