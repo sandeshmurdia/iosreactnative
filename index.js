@@ -33,6 +33,7 @@ import * as Sentry from '@sentry/react-native';
 //     ),
 //   ],
 // });
+///sandesh
 
 import { withGestureCapture } from 'zipy-react-native';
 // import { withGestureCapture } from 'zipyai-react-native';
